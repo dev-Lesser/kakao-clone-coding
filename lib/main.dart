@@ -25,6 +25,10 @@ class MyApp extends StatelessWidget {
             child: SizedBox(
               child: ListView(
                 children: [
+                    Container(
+                      child: Text('내 정보', style: TextStyle(fontSize: 10)),
+                      padding: EdgeInsets.all(10),
+                    ),
                     Row(
                       children: [
                         CircleAvatar(
@@ -33,13 +37,21 @@ class MyApp extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.all(20),
-                          child: Text('내이름')
+                          child: Text('내이름', style: TextStyle(fontFamily: 'gangwon'),)
                         )
                       ],
                   ),
                   Divider(color: Colors.black, thickness: 0.2),
-
-                  for (var i = 0; i < 30; i++) Column(children: [ContactItem(), Divider(color: Colors.black, thickness: 0.2)]),
+                  Container(
+                      child: Text('내 친구 정보', style: TextStyle(fontSize: 10)),
+                    padding: EdgeInsets.all(10),
+                  ),
+                  for (var i = 0; i < 30; i++) Column(
+                      children: [
+                        ContactItem(),
+                        Divider(color: Colors.black, thickness: 0.1)
+                      ]
+                  ),
                 ]
               )
             )
@@ -51,10 +63,10 @@ class MyApp extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(icon: Icon(Icons.phone), onPressed: (){},),
+                  IconButton(icon: Icon(Icons.person), onPressed: (){},),
                   IconButton(icon: Icon(Icons.chat), onPressed: (){},),
-                  IconButton(icon: Icon(Icons.contact_page), onPressed: (){},),
-                  IconButton(icon: Icon(Icons.contact_page), onPressed: (){},),
+                  IconButton(icon: Icon(Icons.center_focus_weak_sharp), onPressed: (){},),
+                  IconButton(icon: Icon(Icons.menu), onPressed: (){},),
                 ],
               )
             ),
@@ -71,17 +83,44 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-            backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-            child: const Icon(Icons.person, color: Colors.white,)
+    return TextButton(
+      style: TextButton.styleFrom(primary: Colors.black),
+        child: Row(
+          children: [
+            CircleAvatar(
+                backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+                child: const Icon(Icons.person, color: Colors.white,)
+            ),
+            Container(
+                padding: EdgeInsets.all(20),
+                child: Text(getRandString(3))
+            ),
+          ],
         ),
-        Container(
-            padding: EdgeInsets.all(20),
-            child: Text(getRandString(3))
-        ),
-      ],
+      onPressed: (){
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              height: 200,
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text('Modal BottomSheet'),
+                    TextButton(
+                      child: const Text('Done!'),
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -58,8 +58,6 @@ packages:
     source: hosted
     version: "1.2.0"
   flutter:
-    assets:
-        - assets/
     dependency: "direct main"
     description: flutter
     source: sdk
